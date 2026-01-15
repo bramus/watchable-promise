@@ -24,11 +24,11 @@ describe("README Examples", () => {
     expect(promise.status).toBe("pending");
     expect(promise.settled).toBe(false);
 
-    resolve("bar");
+    resolve("foo");
 
     const result = await promise;
 
-    expect(result).toBe("bar");
+    expect(result).toBe("foo");
     expect(promise.status).toBe("fulfilled");
     expect(promise.settled).toBe(true);
   });

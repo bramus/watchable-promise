@@ -15,7 +15,7 @@ npm install watchable-promise
     ```javascript
     import WatchablePromise from 'watchable-promise';
 
-    const p = new WatchablePromise(…);
+    const p = new WatchablePromise(resolve => setTimeout(() => resolve('foo'), 100));
 
     console.log(p.status); // pending
     console.log(p.settled); // false
@@ -33,7 +33,7 @@ npm install watchable-promise
     console.log(p.settled); // false
 
     p.then(val => {
-        console.log(val) // 'bar'
+        console.log(val) // 'foo'
         console.log(p.status); // fulfilled
         console.log(p.settled); // true
     });
@@ -49,10 +49,10 @@ npm install watchable-promise
     console.log(promise.status); // pending
     console.log(promise.settled); // false
     
-    resolve('bar');
+    resolve('foo');
 
     promise.then(val => {
-        console.log(val) // 'bar'
+        console.log(val) // 'foo'
         console.log(promise.status); // fulfilled
         console.log(promise.settled); // true
     });
