@@ -1,0 +1,53 @@
+{
+  "name": "watchable-promise",
+  "version": "1.0.0",
+  "description": "A Promise whose status you can read",
+  "type": "module",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "lint": "prettier --check '{src,tests,demo}/**/*.{ts,tsx,js,jsx}'",
+    "format": "prettier --write '{src,tests,demo}/**/*.{ts,tsx,js,jsx}'",
+    "type-check": "tsc --noEmit",
+    "prebuild": "npm run clean",
+    "build": "esbuild src/index.ts --sourcemap --bundle --outfile=dist/index.js --platform=browser --format=esm && tsc --declaration --emitDeclarationOnly --outdir dist",
+    "start": "echo 'There is nothing to start. I think you may just want to run the tests instead' && exit 1",
+    "test": "vitest",
+    "test-once": "vitest run",
+    "prepack": "npm run require-pristine-tree && npm run test-once",
+    "prepublish": "npm run build",
+    "preversion": "npm run require-pristine-tree && npm run test-once",
+    "prepare": "husky install",
+    "require-pristine-tree": "exit $(git status --porcelain | wc -l)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bramus/watchable-promise.git"
+  },
+  "keywords": [
+    "promises",
+    "status",
+    "watchable"
+  ],
+  "author": {
+    "name": "Bramus",
+    "email": "bramus@bram.us",
+    "url": "https://www.bram.us/"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bramus/watchable-promise/issues"
+  },
+  "homepage": "https://github.com/bramus/watchable-promise#readme",
+  "devDependencies": {
+    "esbuild": "^0.27.2",
+    "husky": "^8.0.0",
+    "prettier": "^3.4.1",
+    "typescript": "^5.7.2",
+    "vitest": "^4.0.17"
+  }
+}
