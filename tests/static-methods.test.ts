@@ -8,6 +8,7 @@ describe("WatchablePromise Static Methods", () => {
       await wp;
       expect(wp.settled).toBe(true);
       expect(wp.state).toBe("fulfilled");
+      expect(wp.value).toBe("foo");
       await expect(wp).resolves.toBe("foo");
     });
   });
@@ -18,6 +19,7 @@ describe("WatchablePromise Static Methods", () => {
       await wp.catch(() => {});
       expect(wp.settled).toBe(true);
       expect(wp.state).toBe("rejected");
+      expect(wp.value).toBe("foo");
       await expect(wp).rejects.toBe("foo");
     });
   });
@@ -35,6 +37,7 @@ describe("WatchablePromise Static Methods", () => {
       await wp;
       expect(wp.settled).toBe(true);
       expect(wp.state).toBe("fulfilled");
+      expect(wp.value).toBe("foo");
       await expect(wp).resolves.toBe("foo");
     });
 
@@ -44,6 +47,7 @@ describe("WatchablePromise Static Methods", () => {
       await wp.catch(() => {});
       expect(wp.settled).toBe(true);
       expect(wp.state).toBe("rejected");
+      expect(wp.value).toBe("foo");
       await expect(wp).rejects.toBe("foo");
     });
 
@@ -52,6 +56,7 @@ describe("WatchablePromise Static Methods", () => {
       const wp = WatchablePromise.from(p);
       expect(wp.settled).toBe(false);
       expect(wp.state).toBe("pending");
+      expect(wp.value).toBe(undefined);
     });
 
     it("should resolve when the original promise resolves", async () => {
@@ -61,21 +66,25 @@ describe("WatchablePromise Static Methods", () => {
       const wp = WatchablePromise.from(p);
       expect(wp.settled).toBe(false);
       expect(wp.state).toBe("pending");
+      expect(wp.value).toBe(undefined);
       await wp;
       expect(wp.settled).toBe(true);
       expect(wp.state).toBe("fulfilled");
+      expect(wp.value).toBe("foo");
     });
 
-    it("should reject when the original promise resolves", async () => {
+    it("should reject when the original promise rejects", async () => {
       const p = new Promise((_, reject) => {
         setTimeout(() => reject("foo"), 100);
       });
       const wp = WatchablePromise.from(p);
       expect(wp.settled).toBe(false);
       expect(wp.state).toBe("pending");
+      expect(wp.value).toBe(undefined);
       await wp.catch(() => {});
       expect(wp.settled).toBe(true);
       expect(wp.state).toBe("rejected");
+      expect(wp.value).toBe("foo");
     });
 
     it("should resolve a pre-resolved promise", async () => {
@@ -84,6 +93,7 @@ describe("WatchablePromise Static Methods", () => {
       await wp;
       expect(wp.settled).toBe(true);
       expect(wp.state).toBe("fulfilled");
+      expect(wp.value).toBe("foo");
     });
 
     it("should reject pre-rejected promise", async () => {
@@ -92,6 +102,7 @@ describe("WatchablePromise Static Methods", () => {
       await wp.catch(() => {});
       expect(wp.settled).toBe(true);
       expect(wp.state).toBe("rejected");
+      expect(wp.value).toBe("foo");
     });
   });
 });

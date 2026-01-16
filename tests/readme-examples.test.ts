@@ -10,12 +10,14 @@ describe("README Examples", () => {
 
     expect(p.state).toBe("pending");
     expect(p.settled).toBe(false);
+    expect(p.value).toBe(undefined);
 
     const result = await p;
 
     expect(result).toBe("foo");
     expect(p.state).toBe("fulfilled");
     expect(p.settled).toBe(true);
+    expect(p.value).toBe("foo");
   });
 
   it("should work with WatchablePromise.withResolvers()", async () => {
@@ -23,6 +25,7 @@ describe("README Examples", () => {
 
     expect(promise.state).toBe("pending");
     expect(promise.settled).toBe(false);
+    expect(promise.value).toBe(undefined);
 
     resolve("foo");
 
@@ -31,5 +34,6 @@ describe("README Examples", () => {
     expect(result).toBe("foo");
     expect(promise.state).toBe("fulfilled");
     expect(promise.settled).toBe(true);
+    expect(promise.value).toBe("foo");
   });
 });

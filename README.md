@@ -1,6 +1,6 @@
 # watchable-promise
 
-A Promise whose state you can read
+A Promise whose state and value you can read
 
 ## Installation
 
@@ -19,12 +19,14 @@ npm install watchable-promise
 
     console.log(p.state); // pending
     console.log(p.settled); // false
+    console.log(p.value); // undefined
 
     const val = await p;
 
     console.log(val) // "foo"
     console.log(p.state); // fulfilled
     console.log(p.settled); // true
+    console.log(p.value); // "foo"
     ```
 
 - Using an existing `Promise` instance:
@@ -37,12 +39,14 @@ npm install watchable-promise
 
     console.log(p.state); // pending
     console.log(p.settled); // false
+    console.log(p.value); // undefined
 
     const val = await p;
 
     console.log(val) // "foo"
     console.log(p.state); // fulfilled
     console.log(p.settled); // true
+    console.log(p.value); // "foo"
     ```
 
 - Using `WatchablePromise.withResolvers()`:
@@ -54,11 +58,13 @@ npm install watchable-promise
 
     console.log(promise.state); // pending
     console.log(promise.settled); // false
+    console.log(promise.value); // undefined
     
     await resolve("foo");
 
     console.log(promise.state); // fulfilled
     console.log(promise.settled); // true
+    console.log(promise.value); // "foo"
     ```
 
 ## License
