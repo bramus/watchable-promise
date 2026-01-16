@@ -53,5 +53,45 @@ describe("WatchablePromise Static Methods", () => {
       expect(wp.settled).toBe(false);
       expect(wp.status).toBe("pending");
     });
+
+    it("should resolve when the original promise resolves", async () => {
+      const p = new Promise((resolve) => {
+        setTimeout(() => resolve("foo"), 100);
+      });
+      const wp = WatchablePromise.from(p);
+      expect(wp.settled).toBe(false);
+      expect(wp.status).toBe("pending");
+      await wp;
+      expect(wp.settled).toBe(true);
+      expect(wp.status).toBe("fulfilled");
+    });
+
+    it("should reject when the original promise resolves", async () => {
+      const p = new Promise((_, reject) => {
+        setTimeout(() => reject("foo"), 100);
+      });
+      const wp = WatchablePromise.from(p);
+      expect(wp.settled).toBe(false);
+      expect(wp.status).toBe("pending");
+      await wp.catch(() => {});
+      expect(wp.settled).toBe(true);
+      expect(wp.status).toBe("rejected");
+    });
+
+    it("should resolve a pre-resolved promise", async () => {
+      const p = Promise.resolve("foo");
+      const wp = WatchablePromise.from(p);
+      await wp;
+      expect(wp.settled).toBe(true);
+      expect(wp.status).toBe("fulfilled");
+    });
+
+    it("should reject pre-rejected promise", async () => {
+      const p = Promise.reject("foo");
+      const wp = WatchablePromise.from(p);
+      await wp.catch(() => {});
+      expect(wp.settled).toBe(true);
+      expect(wp.status).toBe("rejected");
+    });
   });
 });
