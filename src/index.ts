@@ -41,10 +41,16 @@ class WatchablePromise<T> extends Promise<T> {
   }
 
   resolve(value: T) {
+    this.#state = "fulfilled";
+    this.#value = value;
+    this.#settled = true;
     this.#resolve(value);
   }
 
   reject(reason?: any) {
+    this.#state = "rejected";
+    this.#value = reason;
+    this.#settled = true;
     this.#reject(reason);
   }
 

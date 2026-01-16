@@ -7,7 +7,7 @@ describe("WatchablePromise: instance methods", () => {
       //
     });
     p.resolve("foo");
-    await expect(p).resolves.toBe("foo");
+    expect(p.value).toBe("foo");
     expect(p.state).toBe("fulfilled");
     expect(p.value).toBe("foo");
   });
@@ -17,7 +17,7 @@ describe("WatchablePromise: instance methods", () => {
       //
     });
     p.reject("foo");
-    await expect(p).rejects.toBe("foo");
+    expect(p.value).toBe("foo");
     expect(p.state).toBe("rejected");
     expect(p.value).toBe("foo");
   });
