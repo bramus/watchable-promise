@@ -18,8 +18,7 @@
     "start": "echo 'There is nothing to start. I think you may just want to run the tests instead' && exit 1",
     "test": "vitest",
     "test-once": "vitest run",
-    "prepack": "npm run require-pristine-tree && npm run test-once",
-    "prepublish": "npm run build",
+    "prepack": "npm run require-pristine-tree && npm run test-once && npm run build",
     "preversion": "npm run require-pristine-tree && npm run test-once",
     "prepare": "husky install",
     "require-pristine-tree": "exit $(git status --porcelain | wc -l)"
