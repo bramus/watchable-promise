@@ -2,6 +2,8 @@ class WatchablePromise<T> extends Promise<T> {
   #settled = false;
   #state: "pending" | "fulfilled" | "rejected" = "pending";
   #value: T | any;
+  #resolve: (value: T | PromiseLike<T>) => void;
+  #reject: (reason?: any) => void;
 
   constructor(
     executor: (
@@ -17,6 +19,11 @@ class WatchablePromise<T> extends Promise<T> {
       reject = rej;
     });
 
+    // @ts-ignore
+    this.#resolve = resolve;
+    // @ts-ignore
+    this.#reject = reject;
+
     this.then(
       (value) => {
         this.#state = "fulfilled";
@@ -30,8 +37,15 @@ class WatchablePromise<T> extends Promise<T> {
       },
     );
 
-    // @ts-ignore
-    executor(resolve, reject);
+    executor(this.#resolve, this.#reject);
+  }
+
+  resolve(value: T) {
+    this.#resolve(value);
+  }
+
+  reject(reason?: any) {
+    this.#reject(reason);
   }
 
   get settled() {

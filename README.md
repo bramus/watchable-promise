@@ -67,6 +67,27 @@ npm install watchable-promise
     console.log(promise.value); // "foo"
     ```
 
+- You can call `.resolve()` or `.reject()` on a `WatchablePromise` instance to resolve or reject it externally:
+
+    ```javascript
+    import WatchablePromise from "watchable-promise";
+
+    // Resolving
+    const p1 = new WatchablePromise(resolve => {});
+    p1.resolve("foo");
+    const val = await p1;
+    console.log(val) // "foo"
+
+    // Rejecting
+    const p2 = new WatchablePromise((resolve, reject) => {});
+    p2.reject("bar");
+    try {
+        await p2;
+    } catch (err) {
+        console.log(err) // "bar"
+    }
+    ```
+
 ## License
 
 `watchable-promise` is released under the Apache 2.0 License. See the enclosed [`LICENSE`](./LICENSE) for details.
