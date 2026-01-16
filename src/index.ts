@@ -1,6 +1,6 @@
 class WatchablePromise<T> extends Promise<T> {
   #settled = false;
-  #status: "pending" | "fulfilled" | "rejected" = "pending";
+  #state: "pending" | "fulfilled" | "rejected" = "pending";
 
   constructor(
     executor: (
@@ -18,11 +18,11 @@ class WatchablePromise<T> extends Promise<T> {
 
     this.then(
       () => {
-        this.#status = "fulfilled";
+        this.#state = "fulfilled";
         this.#settled = true;
       },
       () => {
-        this.#status = "rejected";
+        this.#state = "rejected";
         this.#settled = true;
       },
     );
@@ -35,8 +35,8 @@ class WatchablePromise<T> extends Promise<T> {
     return this.#settled;
   }
 
-  get status() {
-    return this.#status;
+  get state() {
+    return this.#state;
   }
 
   static from<T>(existingPromise: Promise<T>): WatchablePromise<T> {

@@ -12,7 +12,7 @@ describe("WatchablePromise Constructor", () => {
     expect(wp).toBeInstanceOf(WatchablePromise);
     expect(wp).toBeInstanceOf(Promise);
     expect(wp.settled).toBe(false);
-    expect(wp.status).toBe("pending");
+    expect(wp.state).toBe("pending");
   });
 
   it("should resolve a promise", async () => {
@@ -21,7 +21,7 @@ describe("WatchablePromise Constructor", () => {
     });
     await wp;
     expect(wp.settled).toBe(true);
-    expect(wp.status).toBe("fulfilled");
+    expect(wp.state).toBe("fulfilled");
     await expect(wp).resolves.toBe("foo");
   });
 
@@ -31,29 +31,29 @@ describe("WatchablePromise Constructor", () => {
     });
     await wp.catch(() => {});
     expect(wp.settled).toBe(true);
-    expect(wp.status).toBe("rejected");
+    expect(wp.state).toBe("rejected");
     await expect(wp).rejects.toBe("foo");
   });
 
   it("should resolve a promise using withResolvers", async () => {
     const { promise, resolve } = WatchablePromise.withResolvers<string>();
     expect(promise.settled).toBe(false);
-    expect(promise.status).toBe("pending");
+    expect(promise.state).toBe("pending");
     resolve("foo");
     await promise;
     expect(promise.settled).toBe(true);
-    expect(promise.status).toBe("fulfilled");
+    expect(promise.state).toBe("fulfilled");
     await expect(promise).resolves.toBe("foo");
   });
 
   it("should reject a promise using withResolvers", async () => {
     const { promise, reject } = WatchablePromise.withResolvers<string>();
     expect(promise.settled).toBe(false);
-    expect(promise.status).toBe("pending");
+    expect(promise.state).toBe("pending");
     reject("foo");
     await promise.catch(() => {});
     expect(promise.settled).toBe(true);
-    expect(promise.status).toBe("rejected");
+    expect(promise.state).toBe("rejected");
     await expect(promise).rejects.toBe("foo");
   });
 });

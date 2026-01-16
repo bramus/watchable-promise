@@ -8,20 +8,20 @@ describe("README Examples", () => {
     );
     const p = WatchablePromise.from(existingPromise);
 
-    expect(p.status).toBe("pending");
+    expect(p.state).toBe("pending");
     expect(p.settled).toBe(false);
 
     const result = await p;
 
     expect(result).toBe("foo");
-    expect(p.status).toBe("fulfilled");
+    expect(p.state).toBe("fulfilled");
     expect(p.settled).toBe(true);
   });
 
   it("should work with WatchablePromise.withResolvers()", async () => {
     const { promise, resolve } = WatchablePromise.withResolvers<string>();
 
-    expect(promise.status).toBe("pending");
+    expect(promise.state).toBe("pending");
     expect(promise.settled).toBe(false);
 
     resolve("foo");
@@ -29,7 +29,7 @@ describe("README Examples", () => {
     const result = await promise;
 
     expect(result).toBe("foo");
-    expect(promise.status).toBe("fulfilled");
+    expect(promise.state).toBe("fulfilled");
     expect(promise.settled).toBe(true);
   });
 });

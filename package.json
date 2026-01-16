@@ -1,7 +1,7 @@
 {
   "name": "watchable-promise",
   "version": "1.0.0",
-  "description": "A Promise whose status you can read",
+  "description": "A Promise whose state you can read",
   "type": "module",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,7 +30,7 @@
   },
   "keywords": [
     "promises",
-    "status",
+    "state",
     "watchable"
   ],
   "author": {

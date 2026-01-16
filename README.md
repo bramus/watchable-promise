@@ -1,6 +1,6 @@
 # watchable-promise
 
-A Promise whose status you can read
+A Promise whose state you can read
 
 ## Installation
 
@@ -17,13 +17,13 @@ npm install watchable-promise
 
     const p = new WatchablePromise(resolve => setTimeout(() => resolve("foo"), 100));
 
-    console.log(p.status); // pending
+    console.log(p.state); // pending
     console.log(p.settled); // false
 
     const val = await p;
 
     console.log(val) // "foo"
-    console.log(p.status); // fulfilled
+    console.log(p.state); // fulfilled
     console.log(p.settled); // true
     ```
 
@@ -35,13 +35,13 @@ npm install watchable-promise
     const existingPromise = new Promise(resolve => setTimeout(() => resolve("foo"), 100));
     const p = WatchablePromise.from(existingPromise);
 
-    console.log(p.status); // pending
+    console.log(p.state); // pending
     console.log(p.settled); // false
 
     const val = await p;
 
     console.log(val) // "foo"
-    console.log(p.status); // fulfilled
+    console.log(p.state); // fulfilled
     console.log(p.settled); // true
     ```
 
@@ -52,12 +52,12 @@ npm install watchable-promise
     
     const { promise, resolve, reject } = WatchablePromise.withResolvers();
 
-    console.log(promise.status); // pending
+    console.log(promise.state); // pending
     console.log(promise.settled); // false
     
     await resolve("foo");
 
-    console.log(promise.status); // fulfilled
+    console.log(promise.state); // fulfilled
     console.log(promise.settled); // true
     ```
 
