@@ -13,12 +13,18 @@ npm install watchable-promise
 - Directly create a `WatchablePromise` instance:
 
     ```javascript
-    import WatchablePromise from 'watchable-promise';
+    import WatchablePromise from "watchable-promise";
 
-    const p = new WatchablePromise(resolve => setTimeout(() => resolve('foo'), 100));
+    const p = new WatchablePromise(resolve => setTimeout(() => resolve("foo"), 100));
 
     console.log(p.status); // pending
     console.log(p.settled); // false
+
+    const val = await p;
+
+    console.log(val) // "foo"
+    console.log(p.status); // fulfilled
+    console.log(p.settled); // true
     ```
 
 - Using an existing `Promise` instance:
@@ -26,17 +32,17 @@ npm install watchable-promise
     ```javascript
     import WatchablePromise from 'watchable-promise';
 
-    const existingPromise = new Promise(resolve => setTimeout(() => resolve('foo'), 100));
+    const existingPromise = new Promise(resolve => setTimeout(() => resolve("foo"), 100));
     const p = WatchablePromise.from(existingPromise);
 
     console.log(p.status); // pending
     console.log(p.settled); // false
 
-    p.then(val => {
-        console.log(val) // 'foo'
-        console.log(p.status); // fulfilled
-        console.log(p.settled); // true
-    });
+    const val = await p;
+
+    console.log(val) // "foo"
+    console.log(p.status); // fulfilled
+    console.log(p.settled); // true
     ```
 
 - Using `WatchablePromise.withResolvers()`:
@@ -49,13 +55,10 @@ npm install watchable-promise
     console.log(promise.status); // pending
     console.log(promise.settled); // false
     
-    resolve('foo');
+    await resolve("foo");
 
-    promise.then(val => {
-        console.log(val) // 'foo'
-        console.log(promise.status); // fulfilled
-        console.log(promise.settled); // true
-    });
+    console.log(promise.status); // fulfilled
+    console.log(promise.settled); // true
     ```
 
 ## License
