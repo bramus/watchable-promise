@@ -1,6 +1,6 @@
 {
   "name": "watchable-promise",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A Promise whose state and value you can read",
   "type": "module",
   "module": "dist/index.js",
