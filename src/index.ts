@@ -40,12 +40,12 @@ class WatchablePromise<T> extends Promise<T> {
     executor(this.#resolve, this.#reject);
   }
 
-  async resolve(value: T) {
-    return await this.#resolve(value);
+  resolve(value: T) {
+    return this.#resolve(value);
   }
 
-  async reject(reason?: any) {
-    return await this.#reject(reason);
+  reject(reason?: any) {
+    return this.#reject(reason);
   }
 
   get settled() {

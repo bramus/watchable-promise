@@ -30,9 +30,9 @@ describe("WatchablePromise: instance methods (from existing)", () => {
     );
 
     const p = WatchablePromise.from(existingPromise);
-    p.resolve("bar"); // This will resolve before the existingPromise can resolve
+    await p.resolve("bar"); // This will resolve before the existingPromise can resolve
 
-    await expect(p).resolves.toBe("bar");
+    expect(p).resolves.toBe("bar");
     expect(p.state).toBe("fulfilled");
     expect(p.value).toBe("bar");
   });
@@ -43,9 +43,9 @@ describe("WatchablePromise: instance methods (from existing)", () => {
     );
 
     const p = WatchablePromise.from(existingPromise);
-    p.reject("bar"); // This will reject before the existingPromise can reject
+    await p.reject("bar"); // This will reject before the existingPromise can reject
 
-    await expect(p).rejects.toBe("bar");
+    expect(p).rejects.toBe("bar");
     expect(p.state).toBe("rejected");
     expect(p.value).toBe("bar");
   });
